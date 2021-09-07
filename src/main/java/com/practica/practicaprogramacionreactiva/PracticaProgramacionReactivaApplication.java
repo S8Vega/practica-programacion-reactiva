@@ -25,15 +25,18 @@ public class PracticaProgramacionReactivaApplication implements CommandLineRunne
 								.id(1).nombres("sebas").edad(23)
 								.build()
 				)
+				.doOnNext(p -> LOGGER.info("[Reactor] Persona: " + p))
 				.subscribe(p -> LOGGER.info("[Reactor] Persona: " + p));
 	}
 
 	public void rxjava2() {
-		Observable.just(
-				Persona.builder()
-						.id(1).nombres("sebas").edad(23)
-						.build()
-		)
+		Observable
+				.just(
+						Persona.builder()
+								.id(1).nombres("sebas").edad(23)
+								.build()
+				)
+				.doOnNext(p -> LOGGER.info("[rxjava2] Persona: " + p))
 				.subscribe(p -> LOGGER.info("[rxjava2] Persona: " + p));
 	}
 
