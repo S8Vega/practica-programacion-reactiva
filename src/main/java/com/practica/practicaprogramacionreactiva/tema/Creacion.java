@@ -1,4 +1,4 @@
-package com.practica.practicaprogramacionreactiva.creacion;
+package com.practica.practicaprogramacionreactiva.tema;
 
 import com.practica.practicaprogramacionreactiva.modelo.Persona;
 import io.reactivex.Observable;

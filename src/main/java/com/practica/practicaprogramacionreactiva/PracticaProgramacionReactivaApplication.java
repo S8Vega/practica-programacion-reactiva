@@ -1,7 +1,7 @@
 package com.practica.practicaprogramacionreactiva;
 
-import com.practica.practicaprogramacionreactiva.creacion.Creacion;
 import com.practica.practicaprogramacionreactiva.modelo.Persona;
+import com.practica.practicaprogramacionreactiva.tema.Transformacion;
 import io.reactivex.Observable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,8 +25,8 @@ public class PracticaProgramacionReactivaApplication implements CommandLineRunne
 
 	@Override
 	public void run(String... args) throws Exception {
-		Creacion creacion = new Creacion();
-		creacion.repeat();
+		Transformacion app = new Transformacion();
+		app.groupBy();
 	}
 
 	public void reactor() {
