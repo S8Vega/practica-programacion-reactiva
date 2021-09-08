@@ -1,5 +1,6 @@
 package com.practica.practicaprogramacionreactiva;
 
+import com.practica.practicaprogramacionreactiva.creacion.Creacion;
 import com.practica.practicaprogramacionreactiva.modelo.Persona;
 import io.reactivex.Observable;
 import org.slf4j.Logger;
@@ -20,6 +21,12 @@ public class PracticaProgramacionReactivaApplication implements CommandLineRunne
 
 	public static void main(String[] args) {
 		SpringApplication.run(PracticaProgramacionReactivaApplication.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		Creacion creacion = new Creacion();
+		creacion.repeat();
 	}
 
 	public void reactor() {
@@ -73,10 +80,4 @@ public class PracticaProgramacionReactivaApplication implements CommandLineRunne
 		fx.collectList().subscribe(p -> LOGGER.info("[flux] " + p.toString()));
 	}
 
-	@Override
-	public void run(String... args) throws Exception {
-		mono();
-		flux();
-		fluxMono();
-	}
 }
