@@ -7,7 +7,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 public class PracticaProgramacionReactivaApplication implements CommandLineRunner {
@@ -25,8 +29,8 @@ public class PracticaProgramacionReactivaApplication implements CommandLineRunne
 								.id(1).nombres("sebas").edad(23)
 								.build()
 				)
-				.doOnNext(p -> LOGGER.info("[Reactor] Persona: " + p))
-				.subscribe(p -> LOGGER.info("[Reactor] Persona: " + p));
+				.doOnNext(p -> LOGGER.info("[Reactor] " + p))
+				.subscribe(p -> LOGGER.info("[Reactor] " + p));
 	}
 
 	public void rxjava2() {
@@ -36,13 +40,43 @@ public class PracticaProgramacionReactivaApplication implements CommandLineRunne
 								.id(1).nombres("sebas").edad(23)
 								.build()
 				)
-				.doOnNext(p -> LOGGER.info("[rxjava2] Persona: " + p))
-				.subscribe(p -> LOGGER.info("[rxjava2] Persona: " + p));
+				.doOnNext(p -> LOGGER.info("[rxjava2] " + p))
+				.subscribe(p -> LOGGER.info("[rxjava2] " + p));
+	}
+
+	public void mono() {
+		Mono
+				.just(
+						Persona.builder()
+								.id(1).nombres("sebas").edad(23)
+								.build()
+				)
+				.subscribe(p -> LOGGER.info("[mono]  " + p));
+	}
+
+	public void flux() {
+		List<Persona> personas = new ArrayList<>();
+		personas.add(Persona.builder().id(1).nombres("1").edad(1).build());
+		personas.add(Persona.builder().id(2).nombres("2").edad(2).build());
+		personas.add(Persona.builder().id(3).nombres("3").edad(3).build());
+
+		Flux.fromIterable(personas).subscribe(p -> LOGGER.info("[flux] " + p.toString()));
+	}
+
+	public void fluxMono() {
+		List<Persona> personas = new ArrayList<>();
+		personas.add(Persona.builder().id(1).nombres("1").edad(1).build());
+		personas.add(Persona.builder().id(2).nombres("2").edad(2).build());
+		personas.add(Persona.builder().id(3).nombres("3").edad(3).build());
+
+		Flux<Persona> fx = Flux.fromIterable(personas);
+		fx.collectList().subscribe(p -> LOGGER.info("[flux] " + p.toString()));
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		reactor();
-		rxjava2();
+		mono();
+		flux();
+		fluxMono();
 	}
 }
